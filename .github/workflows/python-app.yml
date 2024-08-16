@@ -30,6 +30,11 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest pytest-cov
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Instrument code
+      uses: AryazE/auto-dylin/instrument@main
     - name: Test with pytest
       run: |
         pytest tests.py --cov=./ --cov-report=xml
+    - name: Report results
+      if: always()
+      uses: AryazE/auto-dylin/report@main
